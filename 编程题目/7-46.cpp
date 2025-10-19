@@ -35,3 +35,31 @@ int main(){
     }
     cout<<max_cnt;
 }
+
+//----------------另一种解法，考虑使用差分----------------
+#include<iostream>
+using namespace std;
+const int MAX = 60*60*24+1;
+int list [MAX];
+
+int main()
+{
+    int n;
+    cin>>n;
+    while(n--)
+    {
+        int h,m,s;
+        scanf("%d:%d:%d",&h,&m,&s);
+        list[h*3600+m*60+s]+=1;
+        scanf("%d:%d:%d",&h,&m,&s);
+        list[h*3600+m*60+s+1]-=1;//注意这里的+1，因为差分是x_{n} - x_{n+1}
+    }
+    int ans=0;
+    int max_ans=0;
+    for(int i=0;i<MAX;i++)
+    {
+        ans+=list[i];
+        if(ans>max_ans)max_ans=ans;
+    }
+    cout<<max_ans;
+}
